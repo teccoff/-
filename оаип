@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+ 
+namespace PracticeOAIP
+{
+   class Program
+   {
+       static void Main(string[] args)
+       {
+           int[,] A;
+           int n1, m1, n2, m2;
+           Console.Write("n1: ");
+           n1 = Convert.ToInt32(Console.ReadLine());
+           Console.Write("m1: ");
+           m1 = Convert.ToInt32(Console.ReadLine());
+           Console.Write("n2: ");
+           n2 = Convert.ToInt32(Console.ReadLine());
+           Console.Write("m2: ");
+           m2 = Convert.ToInt32(Console.ReadLine());
+           A = new int[n1, m1];
+           int[,] B = new int[n2, m2];
+           fillMatrix(A, n1, m1);
+           Console.WriteLine("A");
+           OutputMatrix(A, n1, m1);
+           fillMatrix(B, n2, m2);
+           Console.WriteLine("B");
+           OutputMatrix(B, n2, m2);
+           if (m1 == n2)
+           {
+               Console.WriteLine("A*B");
+               int[,] C = new int[n1, m2];
+               mtC(A, B, C, n1, m1, n2, m2);
+           }
+           else
+           {
+               Console.WriteLine("Умножение невозможно. Количество столбцов матрицы A не соответствует количеству строк матрицы B.");
+           }
+       }
+       static void fillMatrix(int[,] mt, int n, int m)
+       {
+           Random rnd = new Random();
+           for (int i = 0; i < n; i++)
+           {
+               for (int j = 0; j < m; j++)
+               {
+                   mt[i, j] = rnd.Next(0, 10);
+               }
+           }
+       }
+       static void OutputMatrix(int[,] mt, int n, int m)
+       {
+           for (int i = 0; i < n; i++)
+           {
+               for (int j = 0; j < m; j++)
+               {
+                   Console.Write(mt[i, j] + " ");
+               }
+               Console.WriteLine();
+           }
+       }
+       static void mtC(int[,] A, int[,] B, int[,] C, int n1, int n2, int m1, int m2)
+       {
+           for (int i = 0; i < n1; i++)
+           {
+               for (int j = 0; j < m2; j++)
+               {
+                   C[i, j] = 0;
+                   for (int c = 0; c < m1; c++)
+                   {
+                       C[i, j] += A[i, c] * B[c, j];
+                   }
+                   Console.Write(C[i, j] + " ");
+               }
+               Console.WriteLine();
+           }
+       }
+   }
+}
